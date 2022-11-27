@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,8 @@ public class Order {
 	private Double amount;
 	
 	private LocalDate date;
-	@OneToMany(cascade = CascadeType.ALL)
+
+	@Embedded
 	private List<Product> products=new ArrayList<>();
 	
 	

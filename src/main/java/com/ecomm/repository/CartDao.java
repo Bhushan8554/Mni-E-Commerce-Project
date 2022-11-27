@@ -8,4 +8,5 @@ import com.ecomm.model.Cart;
 @Repository
 public interface CartDao extends JpaRepository<Cart, Integer>{
 
+	public Cart getByCustomerId(Integer id);
 }
