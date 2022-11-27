@@ -27,7 +27,7 @@ public interface ProductService extends JpaRepository<Product, Integer>{
 	
 	public  Product addProduct(Product p);
 	
-	public  Product updateProduct(Product p);
+	public  Product updateProductdetails(Product p);
 	
 	
 	

@@ -32,7 +32,7 @@ public class Customer {
 	@Embedded
 	private Address add;
 	
-	@OneToOne(mappedBy = "customer",cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Cart cart;
 	
 //	@OneToMany(cascade = CascadeType.PERSIST)
