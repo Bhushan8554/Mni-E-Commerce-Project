@@ -24,6 +24,12 @@ public class CustomerController {
 	CustomerService customerService;
 	
 	
+	@PostMapping("/add")
+	public ResponseEntity<Customer> addCustomerMapping(@RequestBody Customer customer) throws CustomerException{
+		Customer c=customerService.addCustomer(customer);
+		
+		return new ResponseEntity<Customer>(c,HttpStatus.OK);
+	}
 	@GetMapping("/customer")
 	public ResponseEntity<Customer> ecomGetUserByIdMapping(@RequestParam("Customer_Id") Integer id) throws CustomerException{
 		Customer c=customerService.getCustomerById(id);

@@ -68,5 +68,14 @@ public class CustomerServiceImpl implements CustomerService{
 		return customers;
 	}
 
+	@Override
+	public Customer addCustomer(Customer customer) throws CustomerException {
+		Customer c=customerDao.findByMobileNo(customer.getMobileNo());
+		if(c!=null) {
+			throw new CustomerException("Customer Already exist");
+		}
+		return customerDao.save(customer);
+	}
+
 	
 }
