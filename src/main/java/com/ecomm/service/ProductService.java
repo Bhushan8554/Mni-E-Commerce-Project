@@ -11,6 +11,8 @@ public interface ProductService extends JpaRepository<Product, Integer>{
 
 	public Product getProdectByid(Integer id);
 	
+	public List<Product> getProdectByName(String name);
+	
 	public List<Product> getAllProducts();
 	
 	public List<Product> getAllProductsSortByRating();
