@@ -28,11 +28,13 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cartId;
+	private Double totalAmount;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
-	private Customer customer;
+//	@OneToOne(cascade = CascadeType.PERSIST)
+//	private Customer customer;
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private java.util.List<Product> productMap= new ArrayList<>();
+	
 	
 }
