@@ -32,4 +32,7 @@ public class Customer {
 	@OneToOne(mappedBy = "customer",cascade = CascadeType.PERSIST)
 	private Cart cart;
 	
+	@OneToOne(mappedBy = "customer",cascade = CascadeType.PERSIST)
+	private Order order;
+	
 }
