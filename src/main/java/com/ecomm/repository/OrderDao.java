@@ -11,5 +11,5 @@ import com.ecomm.model.OrderType;
 @Repository
 public interface OrderDao extends JpaRepository<Order, Integer>{
 
-	public List<Order>findAllByOrderType(OrderType orderType);
+//	public List<Order>findAllByOrderType(OrderType orderType);
 }

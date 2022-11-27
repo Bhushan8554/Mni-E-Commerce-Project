@@ -1,7 +1,7 @@
 package com.ecomm.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,57 +32,63 @@ public class CartServiceImpl implements CartService{
 	public Cart getCartById(Integer id) throws CartException {
 		Cart cart=null;
 		
-		cart=cartDao.getById(id);
+		Optional<Cart> opt=cartDao.findById(id);
 		
-		if (cart==null) {
+		if (opt.isEmpty()) {
 			throw new CartException("No customer with ID = "+id+" found");
 		}
-		return cart;
+		return opt.get();
 	}
 
 	@Override
 	public Cart getCartByCustomer(Customer customer) throws CartException, CustomerException {
 		Cart cart=null;
 		
-		Customer c=customerDao.getById(customer.getCustomerId());
+		Optional< Customer> opt1=customerDao.findById(customer.getCustomerId());
 		
-		if(c==null) {
+		if(opt1.isEmpty()) {
 			throw new CustomerException("Customer Not found");
 		}
-				
-		cart=cartDao.getByCustomerId(customer.getCustomerId());
 		
-		if (cart==null) {
+		Optional< Cart> opt=cartDao.findById(customer.getCustomerId());
+		
+		if (opt.isEmpty()) {
 			throw new CartException("No cart found");
 		}
-		return cart;
+		return opt.get();
 	}
 
 	@Override
 	public List<Product> addProductTOCart(Integer prod_id, Integer customer_Id) throws ProductException, CustomerException {
-		Cart cart=customerDao.getById(customer_Id).getCart();
-		if(cart==null) {
-			throw new CustomerException("Customer not Exist");
+		Optional< Customer> opt1=customerDao.findById(customer_Id);
+		
+		if(opt1.isEmpty()) {
+			throw new CustomerException("Customer Not found");
 		}
 		
-		Product p=productDao.getById(prod_id);
-		if(p==null) {
+		
+		Optional< Product> opt2=productDao.findById(prod_id);
+		if(opt2.isEmpty()) {
 			throw new ProductException("No such product Exist");
 		}
-		cart.getProductMap().add(p);
+		Cart cart=opt1.get().getCart();
 		
+		cart.getProductMap().add(opt2.get());
 		cartDao.save(cart);
 		return cart.getProductMap();
 	}
 
 	@Override
 	public List<Product> RemoveProductFromCart(Integer prod_id, Integer customer_Id) throws CustomerException, ProductException {
-		Cart cart=customerDao.getById(customer_Id).getCart();
-		if(cart==null) {
+		Optional<Customer> opt=customerDao.findById(customer_Id);
+		if(opt.isEmpty()) {
 			throw new CustomerException("Customer not Exist");
 		}
 		
-		Product p=productDao.getById(prod_id);
+		 Cart cart=opt.get().getCart();
+		
+		Optional<Product> opt2=productDao.findById(prod_id);
+		Product p=opt2.get();
 		if(!cart.getProductMap().contains(p)) {
 			throw new ProductException("No such product Exist");
 		}

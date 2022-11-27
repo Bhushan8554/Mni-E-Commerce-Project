@@ -2,6 +2,7 @@ package com.ecomm.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,23 +19,23 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public Customer getCustomerById(Integer id) throws CustomerException {
-		Customer customer=null;
+		//Customer customer=null;
 		
-		customer=customerDao.getById(id);
+		Optional<Customer> opt=customerDao.findById(id);
 		
-		if (customer==null) {
+		if (opt.isEmpty()) {
 			throw new CustomerException("No customer with ID = "+id+" found");
 		}
-		return customer;
+		return opt.get();
 	}
 
 	@Override
 	public Customer updateCustomer(Customer customer) throws CustomerException {
 		Customer c=null;
 		
-		c=customerDao.getById(customer.getCustomerId());
+		Optional<Customer> opt=customerDao.findById(customer.getCustomerId());
 		
-		if (c==null) {
+		if (opt.isEmpty()) {
 			throw new CustomerException("No customer found");
 		}else {
 			c=customerDao.save(customer);
@@ -46,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public Customer getCustomerByMobile(String mobile) throws CustomerException {
 		Customer customer=null;
 		
-		customer=customerDao.getByMobileNo(mobile);
+		customer=customerDao.findByMobileNo(mobile);
 		
 		if (customer==null) {
 			throw new CustomerException("No customer with mobile no = "+mobile+" found");

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ecomm.model.Category;
 import com.ecomm.model.Product;
-@Repository
+
 public interface ProductService {
 
 	public Product getProdectByid(Integer id);

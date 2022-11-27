@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService{
 	public Product getProdectByid(Integer id) {
 		Product product=null;
 		
-		product=productDao.getById(id);
+		product=productDao.findById(id).orElse(null);
 		
 		if(product==null) {
 		
@@ -93,7 +93,7 @@ public class ProductServiceImpl implements ProductService{
 	public Product updateProductdetails(Product p) {
 		Product product=null;
 		
-		product=productDao.getById(p.getProductId());
+		product=productDao.findById(p.getProductId()).orElse(null);
 		
 		if(product!=null) {
 		

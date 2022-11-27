@@ -3,6 +3,7 @@ package com.ecomm.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<Order> getAllOrderByType(OrderType orderType) throws OrderException {
 		List<Order> list=new ArrayList<>();
-		list=orderDao.findAllByOrderType(orderType);
+		list=orderDao.findAll();
 
 		if(list.size()==0) {
 			throw new OrderException("No order found");
@@ -68,12 +69,13 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public Order updateOrder(Order order) throws OrderException {
-		Order o=null;
-		o=orderDao.getById(order.getO_id());
+		//Order o=null;
+		Optional<Order> opt=orderDao.findById(order.getO_id());
 		
-		if(o==null) {
+		if(opt.isEmpty()) {
 			throw new OrderException("No order found to update");
 		}
+		
 		return orderDao.save(order);
 		
 		
@@ -81,25 +83,25 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public Order getOrderByID(Integer id) throws OrderException {
-		Order o=null;
-		o=orderDao.getById(id);
+		//Order o=null;
+		Optional<Order> opt=orderDao.findById(id);
 		
-		if(o==null) {
+		if(opt.isEmpty()) {
 			throw new OrderException("No order found to update");
 		}
-		return orderDao.save(o);
+		return opt.get();
 	}
 
 	@Override
 	public Order addOrder(Integer customerId) throws OrderException, CustomerException {
 		Customer c=null;
 		
-		c=customerDao.getById(customerId);
+		Optional<Customer> opt=customerDao.findById(customerId);
 		
-		if(c==null) {
+		if(opt.isEmpty()) {
 			throw new CustomerException("No such Customer found");
 		}
-		
+		c=opt.get();
 		List<Product>pList=c.getCart().getProductMap();
 		
 		if(pList.isEmpty()) {
