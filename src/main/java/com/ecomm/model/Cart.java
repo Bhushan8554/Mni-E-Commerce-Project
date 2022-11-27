@@ -1,35 +1,32 @@
 package com.ecomm.model;
 
+import java.util.HashMap;
+
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Customer {
+public class Cart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer customerId;
-	private String name;
-	private String mobileNo;
-	private String email;
-	private String password;
+	private Integer cartId;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private Customer customer;
 	
-	@Embedded
-	private Address add;
-	
-	@OneToOne(mappedBy = "customer",cascade = CascadeType.PERSIST)
-	private Cart cart;
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private HashMap<Product, Integer> prodMap= new HashMap<>();
 	
 }
