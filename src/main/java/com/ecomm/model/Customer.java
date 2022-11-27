@@ -1,11 +1,14 @@
 package com.ecomm.model;
 
+import java.util.*;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -32,7 +35,7 @@ public class Customer {
 	@OneToOne(mappedBy = "customer",cascade = CascadeType.PERSIST)
 	private Cart cart;
 	
-	@OneToOne(mappedBy = "customer",cascade = CascadeType.PERSIST)
-	private Order order;
+//	@OneToMany(cascade = CascadeType.PERSIST)
+//	private List<Order> orderList=new ArrayList<>();
 	
 }

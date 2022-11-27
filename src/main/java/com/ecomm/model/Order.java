@@ -1,12 +1,17 @@
 package com.ecomm.model;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,12 +21,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Table(name="Customer_Order")
 public class Order {
 
-	private Integer orderId;
+	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Integer o_id;
+	
+	private Double amount;
+	
 	private LocalDate date;
-	@OneToOne(cascade = CascadeType.PERSIST)
-	private Customer customer;
-	@OneToMany(cascade = CascadeType.PERSIST)
-	private HashMap<Product, Integer> prodMap=new HashMap<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Product> products=new ArrayList<>();
+	
+	
+	
 }

@@ -1,5 +1,6 @@
 package com.ecomm.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,5 +23,6 @@ public class Admin {
 	private String mobileNo;
 	private String email;
 	private String password;
+	@Embedded
 	private Address add;
 }
