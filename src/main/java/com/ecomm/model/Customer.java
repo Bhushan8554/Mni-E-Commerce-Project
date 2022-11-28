@@ -28,6 +28,7 @@ public class Customer {
 	private String mobileNo;
 	private String email;
 	private String password;
+	private String role;
 	
 	@Embedded
 	private Address add;

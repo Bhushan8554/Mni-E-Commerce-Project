@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -86,6 +87,16 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ErrorDetails>(err, HttpStatus.NOT_FOUND);
 		
 	}
+	
+	@ExceptionHandler(UsernameNotFoundException.class)
+	public ResponseEntity<ErrorDetails> ecommerseExceptionHandler(UsernameNotFoundException ee){
+		
+		ErrorDetails err=new ErrorDetails(LocalDateTime.now(),"Validation Error", ee.getMessage());
+		
+		return new ResponseEntity<ErrorDetails>(err, HttpStatus.NOT_FOUND);
+		
+	}
+	
 	
 	
 	
