@@ -33,10 +33,10 @@ public class Customer {
 	@Embedded
 	private Address add;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cart cart;
 	
-//	@OneToMany(cascade = CascadeType.PERSIST)
-//	private List<Order> orderList=new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Order> orderList=new ArrayList<>();
 	
 }

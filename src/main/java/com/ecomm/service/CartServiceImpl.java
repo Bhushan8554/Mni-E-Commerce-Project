@@ -72,8 +72,18 @@ public class CartServiceImpl implements CartService{
 			throw new ProductException("No such product Exist");
 		}
 		Cart cart=opt1.get().getCart();
+		if(cart==null) {
+			cart=new Cart();
+		}
+		List<Product> s= cart.getProductMap();
+		s.add(opt2.get());
+		Double amount=0.0;
+		for (int i=0;i<s.size();i++) {
+			amount+=s.get(i).getPrice();
+		}
 		
-		cart.getProductMap().add(opt2.get());
+		cart.setTotalAmount(amount);
+		cart.setProductMap(s);
 		cartDao.save(cart);
 		return cart.getProductMap();
 	}
@@ -92,6 +102,7 @@ public class CartServiceImpl implements CartService{
 		if(!cart.getProductMap().contains(p)) {
 			throw new ProductException("No such product Exist");
 		}
+		cart.setTotalAmount(cart.getTotalAmount()-p.getPrice());
 		cart.getProductMap().remove(p);
 		
 		cartDao.save(cart);

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.ecomm.exception.CustomerException;
@@ -31,6 +32,10 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Override
 	public List<Order> getOrdersByCustomer(Customer customer) throws OrderException {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(principal instanceof Customer) {
+			System.out.println("Yes");
+		}
 		List<Order> list=new ArrayList<>();
 				list=orderDao.findAll();
 		

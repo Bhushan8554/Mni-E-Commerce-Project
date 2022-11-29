@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.ecomm.service.CustomeUserService;
 
@@ -22,6 +24,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity( prePostEnabled = true, 
+securedEnabled = true, 
+jsr250Enabled = true)
 public class SampleApplication extends WebSecurityConfigurerAdapter{
 
 	public static void main(String[] args) {
@@ -51,11 +56,11 @@ public class SampleApplication extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/user/add").permitAll()
 		.antMatchers("/swagger-ui/**").permitAll()
-		.antMatchers("/user/**").hasRole("ADMIN")
-		.antMatchers("/cart/**").hasRole("USER")
-		.antMatchers("/cart/**").hasRole("USER")
-		.antMatchers("/product/**").hasRole("ADMIN")
-		.antMatchers("/order/**").hasRole("ADMIN")
+//		.antMatchers("/user/**").hasRole("ADMIN")
+//		.antMatchers("/cart/**").hasRole("USER")
+//		.antMatchers("/cart/**").hasRole("USER")
+//		.antMatchers("/product/**").hasRole("ADMIN")
+//		.antMatchers("/order/**").hasRole("ADMIN")
 		.anyRequest()
 		.authenticated()
 		.and()

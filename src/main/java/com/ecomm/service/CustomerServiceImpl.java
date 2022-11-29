@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecomm.exception.CustomerException;
+import com.ecomm.model.Cart;
 import com.ecomm.model.Customer;
 import com.ecomm.repository.CustomerDao;
 
@@ -79,8 +80,9 @@ public class CustomerServiceImpl implements CustomerService{
 		if(c!=null) {
 			throw new CustomerException("Customer Already exist");
 		}
+		customer.setCart(new Cart(0.0, customer));
 		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-		customer.setRole("ROLE_ADMIN");
+		customer.setRole("ROLE_USER");
 		return customerDao.save(customer);
 	}
 

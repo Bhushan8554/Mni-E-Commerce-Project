@@ -6,7 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,11 +27,19 @@ public class Cart {
 	private Integer cartId;
 	private Double totalAmount;
 	
-//	@OneToOne(cascade = CascadeType.PERSIST)
-//	private Customer customer;
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customerId",referencedColumnName = "customerId")
+	private Customer customer;
 	
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Product> productMap= new ArrayList<>();
+
+	public Cart(Double totalAmount, Customer customer) {
+		super();
+		this.totalAmount = totalAmount;
+		this.customer = customer;
+	}
 	
 	
 }
