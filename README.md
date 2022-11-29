@@ -36,6 +36,7 @@
 <br>
 <br>
 
+<!---
 
 # ER Diagram
 <hr>
@@ -60,7 +61,7 @@ The following Diagram depicts the services of Application
 <br>
 <hr>
   
-
+-->
 
 # Teach Stacks Implemented
 <hr>
@@ -69,6 +70,7 @@ The following Diagram depicts the services of Application
 <li>Java
 <li>Spring framework
 <li>Spring Boot Data JPA
+<li>Spring Security
 <li>Hibernate
 <li>Maven
 <li>MySQL
