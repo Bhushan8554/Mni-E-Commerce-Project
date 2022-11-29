@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecomm.exception.CustomerException;
@@ -16,6 +17,9 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Autowired
 	CustomerDao customerDao;
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public Customer getCustomerById(Integer id) throws CustomerException {
@@ -70,10 +74,13 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public Customer addCustomer(Customer customer) throws CustomerException {
+		
 		Customer c=customerDao.findByMobileNo(customer.getMobileNo());
 		if(c!=null) {
 			throw new CustomerException("Customer Already exist");
 		}
+		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+		customer.setRole("ROLE_ADMIN");
 		return customerDao.save(customer);
 	}
 

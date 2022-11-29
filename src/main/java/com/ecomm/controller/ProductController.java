@@ -24,7 +24,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	@GetMapping("/byid")
+	@GetMapping("user/byid")
 	public ResponseEntity<Product> getProductByIdMapping(@RequestParam("products_id")Integer id){
 		Product p=productService.getProdectByid(id);
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
@@ -42,31 +42,31 @@ public class ProductController {
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
 	}
 	
-	@GetMapping("/All")
+	@GetMapping("user/All")
 	public ResponseEntity<List<Product>> getAllProductMapping(){
 		List<Product> p=productService.getAllProducts();
 		return new ResponseEntity<List<Product>>(p,HttpStatus.OK);
 	}
 	
-	@GetMapping("/price/asc")
+	@GetMapping("user/price/asc")
 	public ResponseEntity<List<Product>> getAllProductSortedByPriceMapping(){
 		List<Product> p=productService.getAllProductsSortByPrice();
 		return new ResponseEntity<List<Product>>(p,HttpStatus.OK);
 	}
 	
-	@GetMapping("/rating/asc")
+	@GetMapping("user/rating/asc")
 	public ResponseEntity<List<Product>> getAllProductSortedByRatingMapping(){
 		List<Product> p=productService.getAllProductsSortByRating();
 		return new ResponseEntity<List<Product>>(p,HttpStatus.OK);
 	}
 	
-	@GetMapping("/name")
+	@GetMapping("user/name")
 	public ResponseEntity<List<Product>> getAllProductByNameMapping(@RequestParam("name")String name){
 		List<Product> p=productService.getProdectByName(name);
 		return new ResponseEntity<List<Product>>(p,HttpStatus.OK);
 	}
 	
-	@GetMapping("/category")
+	@GetMapping("user/category")
 	public ResponseEntity<List<Product>> getAllProductByCategoryMapping(@RequestBody Category category){
 		List<Product> p=productService.getproductByCategory(category);
 		return new ResponseEntity<List<Product>>(p,HttpStatus.OK);

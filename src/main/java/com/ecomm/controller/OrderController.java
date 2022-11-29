@@ -27,7 +27,7 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@PostMapping("/customer")
+	@PostMapping("user/customer")
 	public ResponseEntity<List<Order>> getOrdersByCustomerMapping(@RequestBody Customer customer) throws OrderException{
 		List<Order> list=orderService.getOrdersByCustomer(customer);
 		return new ResponseEntity<List<Order>>(list,HttpStatus.OK);
@@ -37,7 +37,7 @@ public class OrderController {
 		List<Order> list=orderService.getAllOrders();
 		return new ResponseEntity<List<Order>>(list,HttpStatus.OK);
 	}
-	@PostMapping("/add")
+	@PostMapping("user/add")
 	public ResponseEntity<Order> addOrderMapping(@RequestParam("Customer_Id")Integer id) throws OrderException, CustomerException{
 		Order o=orderService.addOrder(id);
 		return new ResponseEntity<Order>(o,HttpStatus.OK);
