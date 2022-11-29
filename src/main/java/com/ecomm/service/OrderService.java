@@ -22,4 +22,6 @@ public interface OrderService{
 	 public Order getOrderByID(Integer id) throws OrderException;
 
 	List<Order> getAllOrderByType(OrderType orderType) throws OrderException;
+	
+	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.exception.CustomerException;
+import com.ecomm.model.Address;
 import com.ecomm.model.Customer;
 import com.ecomm.service.CustomerService;
 
@@ -33,6 +34,13 @@ public class CustomerController {
 		
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
+	@PreAuthorize("hasRole('USER')")
+	@PostMapping("/add/address")
+	public ResponseEntity<Customer> addAdressMapping(@RequestBody Address add) throws CustomerException{
+		Customer c=customerService.addAddress(add);
+		
+		return new ResponseEntity<Customer>(c,HttpStatus.OK);
+	}
 	
 	@PermitAll
 	@PostMapping("/admin/add")
@@ -42,7 +50,7 @@ public class CustomerController {
 		
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	@GetMapping("/customer")
 	public ResponseEntity<Customer> ecomGetUserByIdMapping(@RequestParam("Customer_Id") Integer id) throws CustomerException{
 		Customer c=customerService.getCustomerById(id);

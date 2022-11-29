@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecomm.exception.CustomerException;
 import com.ecomm.exception.OrderException;
+import com.ecomm.model.CustomeUserDetails;
 import com.ecomm.model.Customer;
 import com.ecomm.model.Order;
 import com.ecomm.model.OrderType;
@@ -99,6 +100,15 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public Order addOrder(Integer customerId) throws OrderException, CustomerException {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomeUserDetails cd=(CustomeUserDetails)principal;
+		Customer cm=customerDao.findByMobileNo(cd.getUsername());
+		if(cm.getCustomerId()!=customerId) {
+			throw new CustomerException("Please enter valid Customer ID");
+		}
+		
+		
 		Customer c=null;
 		
 		Optional<Customer> opt=customerDao.findById(customerId);
@@ -128,7 +138,7 @@ public class OrderServiceImpl implements OrderService{
 //			productDao.save(s);
 //		});
 		c.getCart().setProductMap(new ArrayList<>());
-		
+		c.getCart().setTotalAmount(0.0);
 		customerDao.save(c);
 		
 		Order o=new Order(amount, LocalDate.now(), OrderType.PENDING, pList);

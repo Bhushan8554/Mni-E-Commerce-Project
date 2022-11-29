@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.ecomm.model.Category;
+import com.ecomm.model.CustomeUserDetails;
+import com.ecomm.model.Customer;
 import com.ecomm.model.Product;
+import com.ecomm.repository.CustomerDao;
 import com.ecomm.repository.ProductDao;
 
 @Service
@@ -15,6 +19,9 @@ public class ProductServiceImpl implements ProductService{
 
 	@Autowired
 	ProductDao productDao;
+	
+	@Autowired
+	CustomerDao customerDao;
 	
 	@Override
 	public Product getProdectByid(Integer id) {
@@ -32,7 +39,7 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> getProdectByName(String name) {
 		List<Product> list =new ArrayList<>();
 		
-		list=productDao.findAll();
+		list=productDao.findAllByName(name);
 		if(list.isEmpty()) {
 			
 		}
@@ -42,6 +49,8 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<Product> getAllProducts() {
+		
+		
 		List<Product> list =new ArrayList<>();
 		
 		list=productDao.findAll();

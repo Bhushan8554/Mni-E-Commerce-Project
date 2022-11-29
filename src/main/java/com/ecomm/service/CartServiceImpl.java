@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.ecomm.exception.CartException;
 import com.ecomm.exception.CustomerException;
 import com.ecomm.exception.ProductException;
 import com.ecomm.model.Cart;
+import com.ecomm.model.CustomeUserDetails;
 import com.ecomm.model.Customer;
 import com.ecomm.model.Product;
 import com.ecomm.repository.CartDao;
@@ -34,6 +36,13 @@ public class CartServiceImpl implements CartService{
 		
 		Optional<Cart> opt=cartDao.findById(id);
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomeUserDetails cd=(CustomeUserDetails)principal;
+		Customer c=customerDao.findByMobileNo(cd.getUsername());
+		if(c.getRole().equals("ROLE_USER") && c.getCart().getCartId()!=id ) {
+			throw new CartException("this is not your cart");
+		}
+		
 		if (opt.isEmpty()) {
 			throw new CartException("No customer with ID = "+id+" found");
 		}
@@ -49,7 +58,12 @@ public class CartServiceImpl implements CartService{
 		if(opt1.isEmpty()) {
 			throw new CustomerException("Customer Not found");
 		}
-		
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		CustomeUserDetails cd=(CustomeUserDetails)principal;
+//		Customer c=customerDao.findByMobileNo(cd.getUsername());
+//		if(c.getCustomerId()!=customer.getCustomerId()) {
+//			throw new 
+//		}
 		Optional< Cart> opt=cartDao.findById(customer.getCustomerId());
 		
 		if (opt.isEmpty()) {
@@ -60,6 +74,14 @@ public class CartServiceImpl implements CartService{
 
 	@Override
 	public List<Product> addProductTOCart(Integer prod_id, Integer customer_Id) throws ProductException, CustomerException {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomeUserDetails cd=(CustomeUserDetails)principal;
+		Customer c=customerDao.findByMobileNo(cd.getUsername());
+		if(c.getCustomerId()!=customer_Id) {
+			throw new CustomerException("Please enter valid Customer ID");
+		}
+		
+		
 		Optional< Customer> opt1=customerDao.findById(customer_Id);
 		
 		if(opt1.isEmpty()) {
@@ -92,6 +114,16 @@ public class CartServiceImpl implements CartService{
 
 	@Override
 	public List<Product> RemoveProductFromCart(Integer prod_id, Integer customer_Id) throws CustomerException, ProductException {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomeUserDetails cd=(CustomeUserDetails)principal;
+		Customer c=customerDao.findByMobileNo(cd.getUsername());
+		if(c.getCustomerId()!=customer_Id) {
+			throw new CustomerException("Please enter valid Customer ID");
+		}
+		
+		
+		
 		Optional<Customer> opt=customerDao.findById(customer_Id);
 		if(opt.isEmpty()) {
 			throw new CustomerException("Customer not Exist");

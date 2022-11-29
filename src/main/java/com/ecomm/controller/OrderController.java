@@ -33,7 +33,7 @@ public class OrderController {
 		List<Order> list=orderService.getOrdersByCustomer(customer);
 		return new ResponseEntity<List<Order>>(list,HttpStatus.OK);
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 	@GetMapping("/allorders")
 	public ResponseEntity<List<Order>> getAllOrdersMapping() throws OrderException{
 		List<Order> list=orderService.getAllOrders();

@@ -57,6 +57,7 @@ public class SampleApplication extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/user/add").permitAll()
 		.antMatchers("/swagger-ui/**").permitAll()
+		.antMatchers("/user/admin/add").permitAll()
 //		.antMatchers("/user/**").hasRole("ADMIN")
 //		.antMatchers("/cart/**").hasRole("USER")
 //		.antMatchers("/cart/**").hasRole("USER")
