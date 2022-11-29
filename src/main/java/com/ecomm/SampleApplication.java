@@ -30,6 +30,7 @@ jsr250Enabled = true)
 public class SampleApplication extends WebSecurityConfigurerAdapter{
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(SampleApplication.class, args);
 	}
 

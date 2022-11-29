@@ -112,6 +112,9 @@ public class OrderServiceImpl implements OrderService{
 		if(pList.isEmpty()) {
 			throw new OrderException("Please add products to your cart");
 		}
+		if(c.getAdd()==null) {
+			throw new CustomerException("Please add Address to customer first");
+		}
 		Double amount=0.0;
 		
 		for(int i=0;i<pList.size();i++) {

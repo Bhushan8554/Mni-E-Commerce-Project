@@ -16,4 +16,5 @@ public interface CustomerService {
 	public Customer getCustomerByMobile(String mobile) throws CustomerException;
 	
 	public List<Customer> getAllCustomers() throws CustomerException;
+	public Customer addAdminCustomer(Customer customer,String key) throws CustomerException;
 }

@@ -33,6 +33,15 @@ public class CustomerController {
 		
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
+	
+	@PermitAll
+	@PostMapping("/admin/add")
+	public ResponseEntity<Customer> addAdminMapping(@RequestParam("Auth_Key")String key,@RequestBody Customer customer) throws CustomerException{
+		
+		Customer c=customerService.addAdminCustomer(customer,key);
+		
+		return new ResponseEntity<Customer>(c,HttpStatus.OK);
+	}
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/customer")
 	public ResponseEntity<Customer> ecomGetUserByIdMapping(@RequestParam("Customer_Id") Integer id) throws CustomerException{

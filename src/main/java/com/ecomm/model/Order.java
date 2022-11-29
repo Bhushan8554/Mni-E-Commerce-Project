@@ -11,9 +11,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,6 +46,10 @@ public class Order {
 		this.orderType = orderType;
 		this.products = products;
 	}
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "customerId" ,referencedColumnName = "customerId")
+	Customer customer;
 
 	@Enumerated
 	private OrderType orderType;

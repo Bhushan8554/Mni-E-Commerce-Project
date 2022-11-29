@@ -86,5 +86,21 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerDao.save(customer);
 	}
 
+	@Override
+	public Customer addAdminCustomer(Customer customer,String key) throws CustomerException {
+		
+		if(!key.equals("G_1@sL!fe")) {
+			throw new CustomerException("Key is Not Valid");
+		}
+		
+		Customer c=customerDao.findByMobileNo(customer.getMobileNo());
+		if(c!=null) {
+			throw new CustomerException("Customer Already exist");
+		}
+		customer.setCart(new Cart(0.0, customer));
+		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+		customer.setRole("ROLE_ADMIN");
+		return customerDao.save(customer);
+	}
 	
 }

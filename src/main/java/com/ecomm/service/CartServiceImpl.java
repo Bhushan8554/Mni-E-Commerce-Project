@@ -87,6 +87,8 @@ public class CartServiceImpl implements CartService{
 		cartDao.save(cart);
 		return cart.getProductMap();
 	}
+	
+	
 
 	@Override
 	public List<Product> RemoveProductFromCart(Integer prod_id, Integer customer_Id) throws CustomerException, ProductException {
