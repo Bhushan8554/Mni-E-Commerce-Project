@@ -66,7 +66,9 @@ public class SampleApplication extends WebSecurityConfigurerAdapter{
 		.anyRequest()
 		.authenticated()
 		.and()
-		.httpBasic();
+		.formLogin().defaultSuccessUrl("/swagger-ui/")
+		.and()
+		.logout().logoutSuccessUrl("/swagger-ui/");
 		
 		
 	}
