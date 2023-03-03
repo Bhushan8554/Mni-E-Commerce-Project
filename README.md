@@ -28,7 +28,7 @@
 <hr>
 <br>
 
-- User Login authentication
+- User Login authentication (With Spring Security)
 - validation for the mobile number number
 - validation for the current user and user identification
 - RESTFUL API with CRUD operations
