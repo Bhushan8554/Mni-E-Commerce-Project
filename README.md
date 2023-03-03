@@ -89,7 +89,7 @@ The following Diagram depicts the services of Application
 
 ```
 #changing the server port
-server.port=8888
+server.port=8080
 
 #db specific properties
 spring.datasource.url=jdbc:mysql://localhost:3306/ezwallet
@@ -114,11 +114,11 @@ spring.mvc.pathmatch.matching-strategy = ANT_PATH_MATCHER
 <br>
 
 ```
-http://localhost:8888/
+http://localhost:8080/
 ```
 
 ```
-http://localhost:8888/swagger-ui/#
+http://localhost:8080/swagger-ui/#
 ```
 <br>
 <br>
