@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.ecomm.service.CustomeUserService;
+import com.ecomm.service.LoginService;
+import com.ecomm.service.LoginServiceImpl;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -45,6 +47,7 @@ public class SampleApplication extends WebSecurityConfigurerAdapter{
 	@Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v3/api-docs",
+        						   "/login",
                                    "/configuration/ui",
                                    "/swagger-resources/**",
                                    "/configuration/security",
@@ -84,6 +87,11 @@ public class SampleApplication extends WebSecurityConfigurerAdapter{
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+    
+    @Bean
+    LoginService loginService() {
+    	return new LoginServiceImpl();
     }
     
     @Bean
